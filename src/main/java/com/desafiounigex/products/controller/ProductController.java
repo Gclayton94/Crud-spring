@@ -18,17 +18,17 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping(value = "/{id}")
-    private ResponseEntity<ProductResponseDTO> findById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ProductResponseDTO> findById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok().body(productService.findById(id));
 
     }
 
     @GetMapping
-    private ResponseEntity<List<ProductResponseDTO>> findAll() {
+    public ResponseEntity<List<ProductResponseDTO>> findAll() {
         return ResponseEntity.ok().body(productService.findAll());
     }
     @PostMapping
-    private ResponseEntity<ProductResponseDTO> register(@RequestBody ProductRequestDTO productRequestDTO, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ProductResponseDTO> register(@RequestBody ProductRequestDTO productRequestDTO, UriComponentsBuilder uriBuilder){
         ProductResponseDTO productResponseDTO = productService.register(productRequestDTO);
         URI uri = uriBuilder.path("/product/{id}").buildAndExpand(productResponseDTO.getId()).toUri();
         return  ResponseEntity.created(uri).body(productResponseDTO);
@@ -36,13 +36,13 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{id}")
-    private ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id){
+    public ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id){
         return ResponseEntity.ok().body(productService.update(id, productDTO));
 
     }
 
     @DeleteMapping(value = "/{id}")
-    private ResponseEntity<String> delete(@PathVariable(value = "id") Long id){
+    public ResponseEntity<String> delete(@PathVariable(value = "id") Long id){
         return ResponseEntity.ok().body(productService.delete(id));
     }
 }
