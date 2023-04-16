@@ -36,7 +36,7 @@ public class ProductServiceImplement implements ProductService {
     }
 
     @Override
-    public ProductResponseDTO update(ProductRequestDTO ProductDTO, Long id) {
+    public ProductResponseDTO update(Long id,ProductRequestDTO ProductDTO) {
         Product product= returnProduct(id);
         productMapper.updateProductData(product,ProductDTO);
         return productMapper.toProductDTO(productRepository.save(product));
@@ -48,7 +48,7 @@ public class ProductServiceImplement implements ProductService {
         return "Produto id:"+id+" deletado";
     }
     private Product returnProduct(Long id){
-        return ProductRepository.findByid(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
+        return ProductRepository.findById(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
 
     }
 }

@@ -2,7 +2,9 @@ package com.desafiounigex.products.dto.response;
 
 
 import com.desafiounigex.products.entity.Product;
+import lombok.Getter;
 
+@Getter
 public class ProductResponseDTO {
     private Long id;
 

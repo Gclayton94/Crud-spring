@@ -1,0 +1,48 @@
+package com.desafiounigex.products.controller;
+
+import com.desafiounigex.products.dto.request.ProductRequestDTO;
+import com.desafiounigex.products.dto.response.ProductResponseDTO;
+import com.desafiounigex.products.service.ProductService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/product")
+@RequiredArgsConstructor
+public class ProductController {
+    private final ProductService productService;
+
+    @GetMapping(value = "/{id}")
+    private ResponseEntity<ProductResponseDTO> findById(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok().body(productService.findById(id));
+
+    }
+
+    @GetMapping
+    private ResponseEntity<List<ProductResponseDTO>> findAll() {
+        return ResponseEntity.ok().body(productService.findAll());
+    }
+    @PostMapping
+    private ResponseEntity<ProductResponseDTO> register(@RequestBody ProductRequestDTO productRequestDTO, UriComponentsBuilder uriBuilder){
+        ProductResponseDTO productResponseDTO = productService.register(productRequestDTO);
+        URI uri = uriBuilder.path("/product/{id}").buildAndExpand(productResponseDTO.getId()).toUri();
+        return  ResponseEntity.created(uri).body(productResponseDTO);
+
+    }
+
+    @PutMapping(value = "/{id}")
+    private ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id){
+        return ResponseEntity.ok().body(productService.update(id, productDTO));
+
+    }
+
+    @DeleteMapping(value = "/{id}")
+    private ResponseEntity<String> delete(@PathVariable(value = "id") Long id){
+        return ResponseEntity.ok().body(productService.delete(id));
+    }
+}
