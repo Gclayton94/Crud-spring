@@ -44,7 +44,8 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public String delete(Long id) {
-        return null;
+        productRepository.deleteById(id);
+        return "Produto id:"+id+" deletado";
     }
     private Product returnProduct(Long id){
         return ProductRepository.findByid(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
