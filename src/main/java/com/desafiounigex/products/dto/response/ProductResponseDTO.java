@@ -1,7 +1,7 @@
-package com.desafiounigex.products.dto;
+package com.desafiounigex.products.dto.response;
 
 
-public class ProductDTO {
+public class ProductResponseDTO {
     private Long id;
 
     private  String nome;
