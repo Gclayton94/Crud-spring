@@ -12,6 +12,6 @@ public interface ProductService {
 List<ProductResponseDTO> findAll();
 
 ProductResponseDTO register(ProductRequestDTO ProductDTO);
-ProductResponseDTO update(ProductRequestDTO ProductDTO, Long id);
+    ProductResponseDTO update(ProductRequestDTO ProductDTO, Long id);
 String delete(Long id);
 }

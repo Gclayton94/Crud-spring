@@ -4,6 +4,8 @@ import com.desafiounigex.products.dto.request.ProductRequestDTO;
 import com.desafiounigex.products.dto.response.ProductResponseDTO;
 import com.desafiounigex.products.entity.Product;
 import com.desafiounigex.products.repository.ProductRepository;
+import com.desafiounigex.products.util.ProductMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -11,30 +13,31 @@ import java.util.List;
 
 @Service
 @Primary
+@RequiredArgsConstructor
 public class ProductServiceImplement implements ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
     @Override
     public ProductResponseDTO findById(Long id) {
-    Product product= returnProduct(id);
-
-    return new ProductResponseDTO(product);
+        return productMapper.toProductDTO(returnProduct(id));
 
     }
 
     @Override
     public List<ProductResponseDTO> findAll() {
-        return null;
+        return productMapper.toProductDTO(productRepository.findAll());
     }
 
     @Override
     public ProductResponseDTO register(ProductRequestDTO ProductDTO) {
-        return null;
+        Product product = productMapper.toProduct(ProductDTO);
+        return productMapper.toProductDTO(productRepository.save(product));
     }
 
     @Override
     public ProductResponseDTO update(ProductRequestDTO ProductDTO, Long id) {
-        Product product= returnProduct(id) ;
+
     }
 
     @Override
@@ -42,7 +45,7 @@ public class ProductServiceImplement implements ProductService {
         return null;
     }
     private Product returnProduct(Long id){
-        return ProductRepository.findById(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
+        return ProductRepository.findByid(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
 
     }
 }

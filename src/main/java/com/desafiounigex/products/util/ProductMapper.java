@@ -4,6 +4,9 @@ import com.desafiounigex.products.dto.request.ProductRequestDTO;
 import com.desafiounigex.products.dto.response.ProductResponseDTO;
 import com.desafiounigex.products.entity.Product;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ProductMapper {
     public Product toProduct(ProductRequestDTO productDTO){
 
@@ -16,5 +19,9 @@ public class ProductMapper {
 
     public ProductResponseDTO toProductDTO(Product product) {
         return  new ProductResponseDTO(product);
+    }
+
+    public  List<ProductResponseDTO> toProductDTO(List<Product> productList){
+        return productList.stream().map(ProductResponseDTO::new).collect(Collectors.toList());
     }
 }
