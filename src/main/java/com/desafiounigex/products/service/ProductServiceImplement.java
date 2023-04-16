@@ -37,7 +37,9 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public ProductResponseDTO update(ProductRequestDTO ProductDTO, Long id) {
-
+        Product product= returnProduct(id);
+        productMapper.updateProductData(product,ProductDTO);
+        return productMapper.toProductDTO(productRepository.save(product));
     }
 
     @Override

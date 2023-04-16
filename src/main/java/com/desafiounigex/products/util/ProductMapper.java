@@ -24,4 +24,10 @@ public class ProductMapper {
     public  List<ProductResponseDTO> toProductDTO(List<Product> productList){
         return productList.stream().map(ProductResponseDTO::new).collect(Collectors.toList());
     }
+    public void updateProductData(Product product, ProductRequestDTO productDTO){
+        product.setNome(productDTO.getNome());
+        product.setCodigo(productDTO.getCodigo());
+        product.setQuantidade(product.getQuantidade());
+
+    }
 }
