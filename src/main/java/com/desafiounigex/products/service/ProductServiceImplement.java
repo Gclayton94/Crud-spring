@@ -48,7 +48,7 @@ public class ProductServiceImplement implements ProductService {
         return "Produto id:"+id+" deletado";
     }
     private Product returnProduct(Long id){
-        return ProductRepository.findById(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
+        return productRepository.findById(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
 
     }
 }

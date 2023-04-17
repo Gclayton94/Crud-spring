@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductResponseDTO> findById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok().body(productService.findById(id));

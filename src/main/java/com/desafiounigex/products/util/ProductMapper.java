@@ -3,10 +3,12 @@ package com.desafiounigex.products.util;
 import com.desafiounigex.products.dto.request.ProductRequestDTO;
 import com.desafiounigex.products.dto.response.ProductResponseDTO;
 import com.desafiounigex.products.entity.Product;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class ProductMapper {
     public Product toProduct(ProductRequestDTO productDTO){
 
